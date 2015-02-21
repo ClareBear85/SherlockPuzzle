@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using SherlockPuzzle.Models;
 
 namespace SherlockPuzzle.Services
@@ -16,12 +13,12 @@ namespace SherlockPuzzle.Services
         /// <summary>
         /// True if the thief has been found.
         /// </summary>
-        bool TheifFound();
+        bool ThiefFound();
 
         /// <summary>
-        /// Returns found theif.
+        /// Returns found thief.
         /// </summary>
-        Room GetTheif();
+        Room GetThief();
     }
 
     class InterviewService : IInterviewService
@@ -54,11 +51,12 @@ namespace SherlockPuzzle.Services
         public void IncrimentInterviews()
         {
             CurrentTime++;
-            bool isDogMoving = CurrentTime % Dog.Duration == 0;
+
+            bool isWellingtonMoving = CurrentTime % Dog.Duration == 0;
             bool isWatsonMoving = CurrentTime % Watson.Duration == 0;
             bool isSherlockMoving = CurrentTime % Sherlock.Duration == 0;
 
-            if (isDogMoving)
+            if (isWellingtonMoving)
             {
                 Room newRoom = GetNextRoom(Dog);
                 MoveToNewRoom(Dog, newRoom);
@@ -69,7 +67,7 @@ namespace SherlockPuzzle.Services
                 Room newRoom = GetNextRoom(Watson);
                 MoveToNewRoom(Watson, newRoom);
 
-                //Move Watson on
+                // Move Watson on
                 if (newRoom.Interviewers.Contains(Sherlock) && !isSherlockMoving)
                 {
                     Room changeRoom = GetNextRoom(Watson);
@@ -106,12 +104,12 @@ namespace SherlockPuzzle.Services
             newRoom.Interviewers.Add(interviewer);
         }
 
-        public bool TheifFound()
+        public bool ThiefFound()
         {
             return FoundRoom != null;
         }
 
-        public Room GetTheif()
+        public Room GetThief()
         {
             return FoundRoom;
         }

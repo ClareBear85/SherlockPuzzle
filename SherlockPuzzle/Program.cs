@@ -1,28 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using SherlockPuzzle.Services;
 using SherlockPuzzle.Models;
+using SherlockPuzzle.Services;
 
 namespace SherlockPuzzle
 {
     class Program
-    {
-        
+    {        
         static void Main(string[] args)
         {
-            // configure stuff
-            var sherlock = new Interviewer { Id = 1, Name = "Shelock Holmes", Duration = 15, Direction = SherlockPuzzle.Models.Interviewer.Directions.Clockwise };
-            var watson = new Interviewer { Id = 2, Name = "Watson", Duration = 20, Direction = SherlockPuzzle.Models.Interviewer.Directions.Anti };
-            var dog = new Interviewer { Id = 3, Name = "Wellington", Duration = 30, Direction = SherlockPuzzle.Models.Interviewer.Directions.Anti };
-
+            // configure
+            var sherlock = new Interviewer { Name = "Shelock Holmes", Duration = 15, Direction = SherlockPuzzle.Models.Interviewer.Directions.Clockwise };
+            var watson = new Interviewer { Name = "Watson", Duration = 20, Direction = SherlockPuzzle.Models.Interviewer.Directions.Anti };
+            var wellington = new Interviewer { Name = "Wellington", Duration = 30, Direction = SherlockPuzzle.Models.Interviewer.Directions.Anti };
             var rooms = GetRooms();
 
-            LinkRoomsAndPeople(rooms, sherlock, watson, dog);
+            LinkRoomsAndPeople(rooms, sherlock, watson, wellington);
 
-            IInterviewService interviewSerivce = new InterviewService(sherlock, watson, dog, rooms);
-            //run program
+            IInterviewService interviewSerivce = new InterviewService(sherlock, watson, wellington, rooms);
 
             Room roomFound = null;
             var minutes = 0;
@@ -31,12 +27,13 @@ namespace SherlockPuzzle
             {
                 interviewSerivce.IncrimentInterviews();
 
-                if (interviewSerivce.TheifFound())
-                    roomFound = interviewSerivce.GetTheif();
+                if (interviewSerivce.ThiefFound())
+                    roomFound = interviewSerivce.GetThief();
+
                 minutes++;
             }
 
-            Console.WriteLine("Found" + roomFound.Name + " after " + minutes + ".");
+            Console.WriteLine("Found " + roomFound.Name + " after " + minutes + " mintues.");
             Console.ReadLine();
         }
 
@@ -58,12 +55,12 @@ namespace SherlockPuzzle
 
         private static List<Room> GetRooms()
         {
-            var room1 = new Room("Mustard");
-            var room2 = new Room("Plum");
-            var room3 = new Room("Green");
-            var room4 = new Room("Peacock");
-            var room5 = new Room("Scarlett");
-            var room6 = new Room("White");
+            Room room1 = new Room("Mustard");
+            Room room2 = new Room("Plum");
+            Room room3 = new Room("Green");
+            Room room4 = new Room("Peacock");
+            Room room5 = new Room("Scarlett");
+            Room room6 = new Room("White");
 
             room1.SetAdjacentRooms(room6, room2);
             room2.SetAdjacentRooms(room1, room3);
