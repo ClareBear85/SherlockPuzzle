@@ -6,7 +6,9 @@ namespace SherlockPuzzle.Services
     public interface IInterviewService
     {
         /// <summary>
-        /// Incriments time by 1 minute, and moves any Interviewers as necessary.
+        /// Incriments time by 1 minute
+        /// Moves interviewers as necessary
+        /// Checks pass criteria
         /// </summary>
         void IncrimentInterviews();
 
@@ -27,7 +29,7 @@ namespace SherlockPuzzle.Services
 
         Interviewer Watson;
 
-        Interviewer Dog;
+        Interviewer Wellington;
 
         IEnumerable<Room> Rooms;
 
@@ -35,13 +37,13 @@ namespace SherlockPuzzle.Services
 
         Room FoundRoom;
 
-        public InterviewService(Interviewer sh, Interviewer wh, Interviewer dog, IEnumerable<Room> rooms)
+        public InterviewService(Interviewer sh, Interviewer wa, Interviewer we, IEnumerable<Room> rooms)
         {
             Sherlock = sh;
 
-            Watson = wh;
+            Watson = wa;
 
-            Dog = dog;
+            Wellington = we;
 
             Rooms = rooms;
 
@@ -52,14 +54,14 @@ namespace SherlockPuzzle.Services
         {
             CurrentTime++;
 
-            bool isWellingtonMoving = CurrentTime % Dog.Duration == 0;
+            bool isWellingtonMoving = CurrentTime % Wellington.Duration == 0;
             bool isWatsonMoving = CurrentTime % Watson.Duration == 0;
             bool isSherlockMoving = CurrentTime % Sherlock.Duration == 0;
 
             if (isWellingtonMoving)
             {
-                Room newRoom = GetNextRoom(Dog);
-                MoveToNewRoom(Dog, newRoom);
+                Room newRoom = GetNextRoom(Wellington);
+                MoveToNewRoom(Wellington, newRoom);
             }
 
             if (isWatsonMoving)
@@ -67,7 +69,6 @@ namespace SherlockPuzzle.Services
                 Room newRoom = GetNextRoom(Watson);
                 MoveToNewRoom(Watson, newRoom);
 
-                // Move Watson on
                 if (newRoom.Interviewers.Contains(Sherlock) && !isSherlockMoving)
                 {
                     Room changeRoom = GetNextRoom(Watson);
@@ -80,7 +81,7 @@ namespace SherlockPuzzle.Services
                 Room newRoom = GetNextRoom(Sherlock);
                 MoveToNewRoom(Sherlock, newRoom);
                                 
-                if (newRoom.Interviewers.Contains(Watson) && newRoom.Interviewers.Contains(Dog))
+                if (newRoom.Interviewers.Contains(Watson) && newRoom.Interviewers.Contains(Wellington))
                 {
                     FoundRoom = newRoom;
                 }
