@@ -6,11 +6,11 @@ namespace SherlockPuzzle.Services
     public interface IInterviewService
     {
         /// <summary>
-        /// Incriments time by 1 minute
+        /// Increment time by 1 minute
         /// Moves interviewers as necessary
         /// Checks pass criteria
         /// </summary>
-        void IncrimentInterviews();
+        void IncrementInterviews();
 
         /// <summary>
         /// True if the thief has been found.
@@ -50,7 +50,7 @@ namespace SherlockPuzzle.Services
             CurrentTime = 0;
         }
 
-        public void IncrimentInterviews()
+        public void IncrementInterviews()
         {
             CurrentTime++;
 
@@ -116,3 +116,16 @@ namespace SherlockPuzzle.Services
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

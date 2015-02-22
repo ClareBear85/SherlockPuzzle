@@ -25,7 +25,7 @@ namespace SherlockPuzzle
 
             while (roomFound == null)
             {
-                interviewSerivce.IncrimentInterviews();
+                interviewSerivce.IncrementInterviews();
 
                 if (interviewSerivce.ThiefFound())
                     roomFound = interviewSerivce.GetThief();
@@ -37,12 +37,12 @@ namespace SherlockPuzzle
             Console.ReadLine();
         }
 
-        private static void LinkRoomsAndPeople(List<Room> rooms, Interviewer sherlock, Interviewer watson, Interviewer dog)
+        private static void LinkRoomsAndPeople(List<Room> rooms, Interviewer sherlock, Interviewer watson, Interviewer wellington)
         {
             var room1 = rooms.Where(x => x.Name == "Mustard").Single();
 
-            room1.Interviewers.Add(dog);
-            dog.CurrentRoom = room1;
+            room1.Interviewers.Add(wellington);
+            wellington.CurrentRoom = room1;
 
             room1.Interviewers.Add(sherlock);
             sherlock.CurrentRoom = room1;
